@@ -1,0 +1,12 @@
+# Root .gitignore
+target/
+*.class
+.idea/
+*.iml
+.vscode/
+node_modules/
+dist/
+build/
+*.log
+.env
+.DS_Store

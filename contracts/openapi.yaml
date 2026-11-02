@@ -1,0 +1,492 @@
+openapi: 3.1.0
+info:
+  title: Academia-Industry Collaboration & Skill-Mapping Portal API
+  version: 1.0.0
+  description: >
+    Production REST API for Skill Taxonomy Matching, Multi-Round Placement Drives,
+    Competency Gap Analysis, and NAAC/NBA Accreditation Audit Logs (SIH Problem ID: SIH26043).
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Local Development Server
+
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user account
+      description: Supports registration for STUDENT, RECRUITER, and TPO_ADMIN.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid input or user already exists
+
+  /auth/login:
+    post:
+      summary: Authenticate user credentials
+      description: Authenticates user and returns stateless JWT token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid credentials
+
+  /skills:
+    get:
+      summary: Retrieve normalized skill taxonomy
+      description: Returns all canonical skills categorized by technical domain.
+      responses:
+        '200':
+          description: List of canonical skills
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SkillDto'
+
+  /students/me:
+    get:
+      summary: Get current authenticated student profile
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Student profile retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentProfileDto'
+
+  /students/me/skills:
+    put:
+      summary: Update student skill matrix
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/StudentSkillInput'
+      responses:
+        '200':
+          description: Skill matrix updated successfully
+
+  /requisitions:
+    get:
+      summary: List all open job requisitions
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: List of requisitions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobRequisitionDto'
+    post:
+      summary: Create a job requisition (Recruiter only)
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequisitionRequest'
+      responses:
+        '201':
+          description: Job requisition created successfully
+
+  /matching/compatibility:
+    get:
+      summary: Compute deterministic compatibility between student and requisition
+      description: Calculates Jaccard set intersection and weighted Cosine similarity.
+      parameters:
+        - name: studentId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: requisitionId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Deterministic compatibility score and breakdown
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompatibilityReportDto'
+
+  /matching/gap-analysis:
+    get:
+      summary: Derive competency gaps and curriculum mappings
+      description: Identifies missing skills and returns institutional course mappings.
+      parameters:
+        - name: studentId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: requisitionId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Competency gap analysis with mapped courses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetencyGapReportDto'
+
+  /tpo/analytics/naac-summary:
+    get:
+      summary: Get NAAC/NBA placement and skill mapping metrics (TPO only)
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: NAAC Criteria 5 & NBA Criteria 4 Placement report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NaacReportDto'
+
+  /tpo/audits:
+    get:
+      summary: Query immutable placement audit logs (TPO only)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Paginated audit event log records
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - email
+        - password
+        - fullName
+        - role
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+        fullName:
+          type: string
+        role:
+          type: string
+          enum: [STUDENT, RECRUITER, TPO_ADMIN]
+        department:
+          type: string
+        rollNumber:
+          type: string
+        companyName:
+          type: string
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        tokenType:
+          type: string
+          example: Bearer
+        userId:
+          type: string
+          format: uuid
+        email:
+          type: string
+        fullName:
+          type: string
+        role:
+          type: string
+
+    SkillDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        canonicalName:
+          type: string
+        category:
+          type: string
+        description:
+          type: string
+
+    StudentSkillInput:
+      type: object
+      required:
+        - skillId
+        - proficiencyLevel
+      properties:
+        skillId:
+          type: string
+          format: uuid
+        proficiencyLevel:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+
+    StudentProfileDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        rollNumber:
+          type: string
+        fullName:
+          type: string
+        department:
+          type: string
+        cgpa:
+          type: number
+        graduationYear:
+          type: integer
+        isPlaced:
+          type: boolean
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentSkillDto'
+
+    StudentSkillDto:
+      type: object
+      properties:
+        skillId:
+          type: string
+          format: uuid
+        skillName:
+          type: string
+        category:
+          type: string
+        proficiencyLevel:
+          type: number
+        isVerified:
+          type: boolean
+
+    JobRequisitionDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        companyName:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        minCgpa:
+          type: number
+        jobType:
+          type: string
+          enum: [INTERNSHIP, FULL_TIME]
+        status:
+          type: string
+          enum: [DRAFT, OPEN, CLOSED]
+        requiredSkills:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequisitionSkillDto'
+
+    RequisitionSkillDto:
+      type: object
+      properties:
+        skillId:
+          type: string
+          format: uuid
+        skillName:
+          type: string
+        weight:
+          type: integer
+          minimum: 1
+          maximum: 5
+        minProficiency:
+          type: number
+
+    CreateRequisitionRequest:
+      type: object
+      required:
+        - title
+        - description
+        - minCgpa
+        - jobType
+        - skills
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        minCgpa:
+          type: number
+        jobType:
+          type: string
+          enum: [INTERNSHIP, FULL_TIME]
+        skills:
+          type: array
+          items:
+            type: object
+            required:
+              - skillId
+              - weight
+              - minProficiency
+            properties:
+              skillId:
+                type: string
+                format: uuid
+              weight:
+                type: integer
+              minProficiency:
+                type: number
+
+    CompatibilityReportDto:
+      type: object
+      properties:
+        studentId:
+          type: string
+          format: uuid
+        requisitionId:
+          type: string
+          format: uuid
+        jaccardIndex:
+          type: number
+        cosineSimilarity:
+          type: number
+        compositeScore:
+          type: number
+        matchedSkillsCount:
+          type: integer
+        totalRequiredSkillsCount:
+          type: integer
+        isEligible:
+          type: boolean
+
+    CompetencyGapReportDto:
+      type: object
+      properties:
+        studentId:
+          type: string
+          format: uuid
+        requisitionId:
+          type: string
+          format: uuid
+        targetJobTitle:
+          type: string
+        missingSkills:
+          type: array
+          items:
+            $ref: '#/components/schemas/MissingSkillItemDto'
+
+    MissingSkillItemDto:
+      type: object
+      properties:
+        skillId:
+          type: string
+          format: uuid
+        skillName:
+          type: string
+        category:
+          type: string
+        recommendedCourseCode:
+          type: string
+        recommendedCourseName:
+          type: string
+        remedialAction:
+          type: string
+
+    NaacReportDto:
+      type: object
+      properties:
+        academicYear:
+          type: string
+        totalGraduatingStudents:
+          type: integer
+        totalPlacedStudents:
+          type: integer
+        placementPercentage:
+          type: number
+        averagePackageLpa:
+          type: number
+        topDeficitSkills:
+          type: array
+          items:
+            type: string
+        totalCorporateDrives:
+          type: integer
