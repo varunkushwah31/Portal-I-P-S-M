@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/students")
+@Validated
 @Tag(name = "Student Profile & Skills", description = "Endpoints for managing student profiles and skill matrices")
 @SecurityRequirement(name = "BearerAuth")
 public class StudentController {

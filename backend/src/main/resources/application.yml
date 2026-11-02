@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
   servlet:
     context-path: /
 
@@ -8,6 +8,9 @@ spring:
     name: academia-placement-portal-backend
   profiles:
     active: dev
+  mvc:
+    problemdetails:
+      enabled: true
 
 ---
 spring:
@@ -39,10 +42,16 @@ spring:
     activate:
       on-profile: prod
   datasource:
-    url: jdbc:postgresql://localhost:5432/placement_db
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/placement_db}
     driver-class-name: org.postgresql.Driver
-    username: placement_admin
-    password: placement_secret_pwd
+    username: ${SPRING_DATASOURCE_USERNAME:placement_admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:placement_secret_pwd}
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 30000
+      max-lifetime: 1200000
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
@@ -57,8 +66,8 @@ spring:
 # Application specific configurations
 app:
   jwt:
-    secret: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
-    expiration-ms: 86400000
+    secret: "${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}"
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
   matching:
     jaccard-weight: 0.40
     cosine-weight: 0.60

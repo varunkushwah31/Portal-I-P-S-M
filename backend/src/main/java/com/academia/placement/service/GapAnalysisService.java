@@ -6,6 +6,8 @@ import com.academia.placement.model.*;
 import com.academia.placement.repository.CourseCurriculumMappingRepository;
 import com.academia.placement.repository.JobRequisitionRepository;
 import com.academia.placement.repository.StudentProfileRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class GapAnalysisService {
+
+    private static final Logger log = LoggerFactory.getLogger(GapAnalysisService.class);
 
     private final StudentProfileRepository studentProfileRepository;
     private final JobRequisitionRepository jobRequisitionRepository;
@@ -71,6 +75,9 @@ public class GapAnalysisService {
         }
 
         String companyName = requisition.getCompany() != null ? requisition.getCompany().getName() : "Enterprise Partner";
+
+        log.info("gap_analysis_generated studentId={} requisitionId={} missingSkillsCount={}",
+                student.getId(), requisition.getId(), missingItems.size());
 
         return new CompetencyGapReportDto(
                 student.getId(),

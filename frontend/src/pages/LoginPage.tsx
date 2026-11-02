@@ -114,7 +114,7 @@ export const LoginPage: React.FC = () => {
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-xs font-medium text-slate-700">
+              <label htmlFor="emailInput" className="block text-xs font-medium text-slate-700">
                 Institutional / Corporate Email
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
@@ -122,6 +122,7 @@ export const LoginPage: React.FC = () => {
                   <EnvelopeSimpleIcon className="w-4 h-4" />
                 </div>
                 <input
+                  id="emailInput"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -133,7 +134,7 @@ export const LoginPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-700">
+              <label htmlFor="passwordInput" className="block text-xs font-medium text-slate-700">
                 Password
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
@@ -141,6 +142,7 @@ export const LoginPage: React.FC = () => {
                   <LockIcon className="w-4 h-4" />
                 </div>
                 <input
+                  id="passwordInput"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { apiClient } from '../api/client';
 import { NaacReport, AuditLog } from '../types';
-import { StatusBadge } from '../components/StatusBadge';
 import {
   ShieldCheckIcon,
   ChartBarIcon,
-  GraduationCapIcon,
   CurrencyInrIcon,
   BriefcaseIcon,
   WarningCircleIcon,
   ClockCounterClockwiseIcon,
-  CheckCircleIcon,
-  BuildingIcon
+  CheckCircleIcon
 } from '@phosphor-icons/react';
 
 export const TpoAnalyticsDashboard: React.FC = () => {
@@ -20,7 +17,7 @@ export const TpoAnalyticsDashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAnalytics();
+    void fetchAnalytics();
   }, []);
 
   const fetchAnalytics = async () => {
@@ -136,12 +133,12 @@ export const TpoAnalyticsDashboard: React.FC = () => {
           Skills carrying the highest corporate requisition frequency across campus drives. Academic department review recommended:
         </p>
         <div className="flex flex-wrap gap-2 pt-1">
-          {naacData?.topDeficitSkills.map((sk, idx) => (
+          {naacData?.topDeficitSkills.map((sk) => (
             <span
-              key={idx}
+              key={sk}
               className="px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-lg text-xs font-semibold"
             >
-              #{idx + 1} {sk}
+              {sk}
             </span>
           ))}
         </div>

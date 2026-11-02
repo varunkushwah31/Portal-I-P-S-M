@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "app.jwt.secret",
+      "type": "java.lang.String",
+      "description": "Base64 encoded secret key for signing stateless JWT tokens."
+    },
+    {
+      "name": "app.jwt.expiration-ms",
+      "type": "java.lang.Long",
+      "description": "Token validity duration in milliseconds."
+    },
+    {
+      "name": "app.matching.jaccard-weight",
+      "type": "java.lang.Double",
+      "description": "Weight multiplier for set-theoretic Jaccard skill intersection."
+    },
+    {
+      "name": "app.matching.cosine-weight",
+      "type": "java.lang.Double",
+      "description": "Weight multiplier for weighted Cosine vector similarity."
+    },
+    {
+      "name": "app.matching.eligibility-threshold",
+      "type": "java.lang.Double",
+      "description": "Minimum composite compatibility score required for role eligibility."
+    }
+  ]
+}

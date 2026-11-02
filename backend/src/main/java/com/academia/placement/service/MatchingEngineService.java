@@ -4,6 +4,8 @@ import com.academia.placement.dto.CompatibilityReportDto;
 import com.academia.placement.model.*;
 import com.academia.placement.repository.JobRequisitionRepository;
 import com.academia.placement.repository.StudentProfileRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class MatchingEngineService {
+
+    private static final Logger log = LoggerFactory.getLogger(MatchingEngineService.class);
 
     private final StudentProfileRepository studentProfileRepository;
     private final JobRequisitionRepository jobRequisitionRepository;

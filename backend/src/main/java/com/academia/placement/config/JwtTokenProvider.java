@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Component
+@SuppressWarnings("java:S2143") // JJWT API builder requires java.util.Date
 public class JwtTokenProvider {
 
     @Value("${app.jwt.secret}")

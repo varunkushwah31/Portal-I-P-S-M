@@ -6,6 +6,8 @@ import com.academia.placement.dto.LoginRequest;
 import com.academia.placement.dto.RegisterRequest;
 import com.academia.placement.model.*;
 import com.academia.placement.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import java.util.UUID;
 
 @Service
 public class AuthService {
+
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
     private final UserRepository userRepository;
     private final StudentProfileRepository studentProfileRepository;
@@ -99,6 +103,8 @@ public class AuthService {
                 "0.0.0.0"
         );
 
+        log.info("user_registered userId={} email={} role={}", user.getId(), user.getEmail(), user.getRole());
+
         return new AuthResponse(
                 token,
                 user.getId(),
@@ -136,6 +142,8 @@ public class AuthService {
         }
 
         String token = jwtTokenProvider.generateToken(user.getId(), user.getEmail(), user.getRole().name());
+
+        log.info("user_login_success userId={} email={} role={}", user.getId(), user.getEmail(), user.getRole());
 
         return new AuthResponse(
                 token,

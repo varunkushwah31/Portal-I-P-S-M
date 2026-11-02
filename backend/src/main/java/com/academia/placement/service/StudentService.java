@@ -7,6 +7,8 @@ import com.academia.placement.model.*;
 import com.academia.placement.repository.SkillRepository;
 import com.academia.placement.repository.StudentProfileRepository;
 import com.academia.placement.repository.StudentSkillRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
+
+    private static final Logger log = LoggerFactory.getLogger(StudentService.class);
 
     private final StudentProfileRepository studentProfileRepository;
     private final StudentSkillRepository studentSkillRepository;

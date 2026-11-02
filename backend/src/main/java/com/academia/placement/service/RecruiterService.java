@@ -5,6 +5,8 @@ import com.academia.placement.dto.JobRequisitionDto;
 import com.academia.placement.dto.RequisitionSkillDto;
 import com.academia.placement.model.*;
 import com.academia.placement.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class RecruiterService {
+
+    private static final Logger log = LoggerFactory.getLogger(RecruiterService.class);
 
     private final JobRequisitionRepository jobRequisitionRepository;
     private final RecruiterProfileRepository recruiterProfileRepository;

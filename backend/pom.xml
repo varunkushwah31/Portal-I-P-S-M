@@ -17,9 +17,9 @@
     <description>Enterprise Skill Mapping, Internships and Placement Portal Core Server (SIH26043)</description>
 
     <properties>
-        <java.version>21</java.version>
-        <jjwt.version>0.12.6</jjwt.version>
-        <springdoc.version>2.8.5</springdoc.version>
+        <java.version>25</java.version>
+        <jjwt.version>0.13.0</jjwt.version>
+        <springdoc.version>3.2.0</springdoc.version>
     </properties>
 
     <dependencies>

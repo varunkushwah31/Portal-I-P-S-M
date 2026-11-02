@@ -18,12 +18,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/matching")
+@Validated
 @Tag(name = "Deterministic Matching & Gap Analysis", description = "Algorithmic Jaccard/Cosine engine and competency gap reporter")
 @SecurityRequirement(name = "BearerAuth")
 public class MatchingController {
