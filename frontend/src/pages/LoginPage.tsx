@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { apiClient } from '../api/client';
 import {
-  GraduationCap,
-  Briefcase,
-  ShieldCheck,
-  Buildings,
-  Lock,
-  EnvelopeSimple,
-  ArrowRight
+  GraduationCapIcon,
+  BriefcaseIcon,
+  ShieldCheckIcon,
+  BuildingsIcon,
+  LockIcon,
+  EnvelopeSimpleIcon,
+  ArrowRightIcon
 } from '@phosphor-icons/react';
 
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
-  const [email, setEmail] = useState('student@kiet.edu');
+  const [email, setEmail] = useState('student@university.edu');
   const [password, setPassword] = useState('Password123!');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,16 +43,16 @@ export const LoginPage: React.FC = () => {
     <div className="min-h-screen bg-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <div className="inline-flex p-3 bg-white border border-slate-200 rounded-2xl shadow-sm mb-4 text-brand-600">
-          <Buildings className="w-10 h-10" weight="duotone" />
+          <BuildingsIcon className="w-10 h-10" weight="duotone" />
         </div>
         <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-          KIET Deemed to be University
+          University Placement Portal
         </h2>
         <p className="mt-1 text-sm text-slate-600">
-          Academia-Industry Collaboration & Skill Mapping Portal
+          Academia-Industry Collaboration &amp; Skill Mapping System
         </p>
         <span className="inline-block mt-2 text-xs font-semibold px-2.5 py-1 bg-brand-50 text-brand-700 border border-brand-200 rounded-full">
-          SIH Problem ID: SIH26043
+          Problem ID: SIH26043
         </span>
       </div>
 
@@ -67,14 +67,14 @@ export const LoginPage: React.FC = () => {
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
-                onClick={() => setDemoRole('student@kiet.edu')}
+                onClick={() => setDemoRole('student@university.edu')}
                 className={`p-2 text-xs font-medium rounded-lg border text-center transition-all ${
-                  email === 'student@kiet.edu'
+                  email === 'student@university.edu'
                     ? 'bg-sky-50 border-sky-300 text-sky-800 font-semibold'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
-                <GraduationCap className="w-4 h-4 mx-auto mb-1 text-sky-600" weight="bold" />
+                <GraduationCapIcon className="w-4 h-4 mx-auto mb-1 text-sky-600" weight="bold" />
                 Student
               </button>
 
@@ -87,20 +87,20 @@ export const LoginPage: React.FC = () => {
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
-                <Briefcase className="w-4 h-4 mx-auto mb-1 text-emerald-600" weight="bold" />
+                <BriefcaseIcon className="w-4 h-4 mx-auto mb-1 text-emerald-600" weight="bold" />
                 Recruiter
               </button>
 
               <button
                 type="button"
-                onClick={() => setDemoRole('tpo@kiet.edu')}
+                onClick={() => setDemoRole('tpo@university.edu')}
                 className={`p-2 text-xs font-medium rounded-lg border text-center transition-all ${
-                  email === 'tpo@kiet.edu'
+                  email === 'tpo@university.edu'
                     ? 'bg-purple-50 border-purple-300 text-purple-800 font-semibold'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
-                <ShieldCheck className="w-4 h-4 mx-auto mb-1 text-purple-600" weight="bold" />
+                <ShieldCheckIcon className="w-4 h-4 mx-auto mb-1 text-purple-600" weight="bold" />
                 TPO Admin
               </button>
             </div>
@@ -119,7 +119,7 @@ export const LoginPage: React.FC = () => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                  <EnvelopeSimple className="w-4 h-4" />
+                  <EnvelopeSimpleIcon className="w-4 h-4" />
                 </div>
                 <input
                   type="email"
@@ -127,7 +127,7 @@ export const LoginPage: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="block w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-brand-500 focus:border-brand-500 bg-white"
-                  placeholder="name@kiet.edu"
+                  placeholder="name@university.edu"
                 />
               </div>
             </div>
@@ -138,7 +138,7 @@ export const LoginPage: React.FC = () => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                  <Lock className="w-4 h-4" />
+                  <LockIcon className="w-4 h-4" />
                 </div>
                 <input
                   type="password"
@@ -159,8 +159,8 @@ export const LoginPage: React.FC = () => {
                 'Authenticating...'
               ) : (
                 <>
-                  Authenticate & Enter Portal
-                  <ArrowRight className="w-4 h-4 ml-1.5" weight="bold" />
+                  Authenticate &amp; Enter Portal
+                  <ArrowRightIcon className="w-4 h-4 ml-1.5" weight="bold" />
                 </>
               )}
             </button>
@@ -168,7 +168,7 @@ export const LoginPage: React.FC = () => {
 
           <div className="mt-6 pt-4 border-t border-slate-100 text-center">
             <span className="text-[11px] text-slate-400">
-              Deterministic Skill Matching Engine &copy; KIET CS Dept 2026
+              Deterministic Skill Matching Engine &copy; Computer Science Department
             </span>
           </div>
         </div>

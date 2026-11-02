@@ -51,10 +51,10 @@ export const Navbar: React.FC = () => {
           </div>
           <div>
             <h1 className="text-base font-bold text-slate-900 leading-tight">
-              KIET Deemed to be University
+              University Placement &amp; Internship Portal
             </h1>
             <p className="text-xs text-slate-500 font-medium">
-              Department of Computer Science - Skill Mapping & Placement Portal
+              Department of Computer Science &amp; Engineering - Skill Mapping System
             </p>
           </div>
         </div>

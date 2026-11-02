@@ -3,15 +3,15 @@ import { apiClient } from '../api/client';
 import { NaacReport, AuditLog } from '../types';
 import { StatusBadge } from '../components/StatusBadge';
 import {
-  ShieldCheck,
-  ChartBar,
-  GraduationCap,
-  CurrencyInr,
-  Briefcase,
-  WarningCircle,
-  ClockCounterClockwise,
-  CheckCircle,
-  Building
+  ShieldCheckIcon,
+  ChartBarIcon,
+  GraduationCapIcon,
+  CurrencyInrIcon,
+  BriefcaseIcon,
+  WarningCircleIcon,
+  ClockCounterClockwiseIcon,
+  CheckCircleIcon,
+  BuildingIcon
 } from '@phosphor-icons/react';
 
 export const TpoAnalyticsDashboard: React.FC = () => {
@@ -43,7 +43,7 @@ export const TpoAnalyticsDashboard: React.FC = () => {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center space-y-2">
-          <ChartBar className="w-8 h-8 text-purple-600 animate-pulse mx-auto" />
+          <ChartBarIcon className="w-8 h-8 text-purple-600 animate-pulse mx-auto" />
           <p className="text-xs text-slate-500 font-medium">Aggregating NAAC/NBA accreditation records...</p>
         </div>
       </div>
@@ -56,11 +56,11 @@ export const TpoAnalyticsDashboard: React.FC = () => {
       <div className="pb-4 border-b border-slate-200 flex justify-between items-center">
         <div>
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-6 h-6 text-purple-700" weight="bold" />
+            <ShieldCheckIcon className="w-6 h-6 text-purple-700" weight="bold" />
             <h2 className="text-xl font-bold text-slate-900">Institutional Placement & Accreditation Console</h2>
           </div>
           <p className="text-xs text-slate-500 mt-0.5">
-            NAAC Criterion 5 (Student Progression) & NBA Criterion 4 Audit Aggregates — KIET Department of Computer Science
+            NAAC Criterion 5 (Student Progression) &amp; NBA Criterion 4 Audit Aggregates — Department of Computer Science &amp; Engineering
           </p>
         </div>
 
@@ -74,7 +74,7 @@ export const TpoAnalyticsDashboard: React.FC = () => {
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-1">
           <div className="flex items-center justify-between text-slate-500 text-xs">
             <span>Placement Rate</span>
-            <ChartBar className="w-4 h-4 text-emerald-600" weight="bold" />
+            <ChartBarIcon className="w-4 h-4 text-emerald-600" weight="bold" />
           </div>
           <div className="text-2xl font-black font-mono text-slate-900">
             {naacData?.placementPercentage.toFixed(1)}%
@@ -87,7 +87,7 @@ export const TpoAnalyticsDashboard: React.FC = () => {
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-1">
           <div className="flex items-center justify-between text-slate-500 text-xs">
             <span>Average Package</span>
-            <CurrencyInr className="w-4 h-4 text-brand-600" weight="bold" />
+            <CurrencyInrIcon className="w-4 h-4 text-brand-600" weight="bold" />
           </div>
           <div className="text-2xl font-black font-mono text-slate-900">
             INR {naacData?.averagePackageLpa.toFixed(2)} LPA
@@ -100,7 +100,7 @@ export const TpoAnalyticsDashboard: React.FC = () => {
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-1">
           <div className="flex items-center justify-between text-slate-500 text-xs">
             <span>Corporate Drives</span>
-            <Briefcase className="w-4 h-4 text-indigo-600" weight="bold" />
+            <BriefcaseIcon className="w-4 h-4 text-indigo-600" weight="bold" />
           </div>
           <div className="text-2xl font-black font-mono text-slate-900">
             {naacData?.totalCorporateDrives}
@@ -113,7 +113,7 @@ export const TpoAnalyticsDashboard: React.FC = () => {
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-1">
           <div className="flex items-center justify-between text-slate-500 text-xs">
             <span>Accreditation Status</span>
-            <CheckCircle className="w-4 h-4 text-emerald-600" weight="fill" />
+            <CheckCircleIcon className="w-4 h-4 text-emerald-600" weight="fill" />
           </div>
           <div className="text-2xl font-black font-mono text-slate-900">
             COMPLIANT
@@ -127,7 +127,7 @@ export const TpoAnalyticsDashboard: React.FC = () => {
       {/* Curriculum Deficit Analysis */}
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-3">
         <div className="flex items-center space-x-2">
-          <WarningCircle className="w-5 h-5 text-amber-600" weight="bold" />
+          <WarningCircleIcon className="w-5 h-5 text-amber-600" weight="bold" />
           <h3 className="text-sm font-bold text-slate-900">
             Top Corporate Skill Demands & Institutional Deficit Analysis
           </h3>
@@ -151,7 +151,7 @@ export const TpoAnalyticsDashboard: React.FC = () => {
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div className="flex items-center space-x-2">
-            <ClockCounterClockwise className="w-5 h-5 text-slate-700" weight="bold" />
+            <ClockCounterClockwiseIcon className="w-5 h-5 text-slate-700" weight="bold" />
             <h3 className="text-sm font-bold text-slate-900">Immutable Placement Audit Trail (Event Stream)</h3>
           </div>
           <span className="text-xs text-slate-500">

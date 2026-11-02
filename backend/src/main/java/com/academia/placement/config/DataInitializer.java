@@ -10,11 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Component
 @Profile("dev")
 public class DataInitializer implements CommandLineRunner {
+
+    private static final String DEFAULT_SEED_PASSWORD = "Password123!";
 
     private final UserRepository userRepository;
     private final StudentProfileRepository studentProfileRepository;
@@ -68,13 +71,13 @@ public class DataInitializer implements CommandLineRunner {
         Skill os = skillRepository.save(new Skill("Operating Systems Primitives", coreCs, "Process scheduling, concurrency, virtual memory, IPC"));
 
         Skill postgres = skillRepository.save(new Skill("PostgreSQL & Relational Modeling", storage, "3NF normalization, ACID transactions, index optimization"));
-        Skill redis = skillRepository.save(new Skill("Redis Caching & In-Memory Stores", storage, "Cache-aside patterns, key eviction, TTL management"));
+        skillRepository.save(new Skill("Redis Caching & In-Memory Stores", storage, "Cache-aside patterns, key eviction, TTL management"));
 
         Skill docker = skillRepository.save(new Skill("Docker & Containerization", systems, "Multi-stage builds, container isolation, docker-compose"));
         Skill networks = skillRepository.save(new Skill("Computer Networks & Protocols", systems, "TCP/IP, HTTP/1.1-2-3, DNS, TLS termination"));
 
         Skill javaSpring = skillRepository.save(new Skill("Java & Spring Boot 3", web, "Spring MVC, Spring Data JPA, Spring Security, IoC"));
-        Skill restApi = skillRepository.save(new Skill("RESTful API Engineering", web, "Stateless JWT auth, idempotency, API contracts"));
+        skillRepository.save(new Skill("RESTful API Engineering", web, "Stateless JWT auth, idempotency, API contracts"));
         Skill reactTs = skillRepository.save(new Skill("React & TypeScript", web, "Component lifecycle, hooks, strict type safety"));
 
         // 3. Curriculum Mappings
@@ -87,7 +90,7 @@ public class DataInitializer implements CommandLineRunner {
 
         // 4. Default Seed Users
         // Student
-        User studentUser = userRepository.save(new User("student@university.edu", passwordEncoder.encode("Password123!"), Role.STUDENT));
+        User studentUser = userRepository.save(new User("student@university.edu", passwordEncoder.encode(DEFAULT_SEED_PASSWORD), Role.STUDENT));
         StudentProfile student = studentProfileRepository.save(new StudentProfile(
                 studentUser, "2100290120001", "Ayush Sharma", "CS", BigDecimal.valueOf(8.45), 2026
         ));
@@ -99,14 +102,14 @@ public class DataInitializer implements CommandLineRunner {
         studentSkillRepository.save(new StudentSkill(student, reactTs, BigDecimal.valueOf(0.70), true, "SELF_REPORTED"));
 
         // Recruiter
-        User recruiterUser = userRepository.save(new User("recruiter@google.com", passwordEncoder.encode("Password123!"), Role.RECRUITER));
+        User recruiterUser = userRepository.save(new User("recruiter@google.com", passwordEncoder.encode(DEFAULT_SEED_PASSWORD), Role.RECRUITER));
         Company google = companyRepository.save(new Company("Google India", "Cloud & Internet Services", "https://careers.google.com", "TIER_1"));
         RecruiterProfile recruiter = recruiterProfileRepository.save(new RecruiterProfile(
                 recruiterUser, google, "Neha Verma", "Senior Technical Recruiter", "recruiter@google.com"
         ));
 
         // TPO Admin
-        userRepository.save(new User("tpo@university.edu", passwordEncoder.encode("Password123!"), Role.TPO_ADMIN));
+        userRepository.save(new User("tpo@university.edu", passwordEncoder.encode(DEFAULT_SEED_PASSWORD), Role.TPO_ADMIN));
 
         // 5. Job Requisition with Skills
         JobRequisition req = new JobRequisition(
@@ -117,7 +120,7 @@ public class DataInitializer implements CommandLineRunner {
                 BigDecimal.valueOf(7.50),
                 "FULL_TIME",
                 BigDecimal.valueOf(18.50),
-                LocalDateTime.now().plusDays(30)
+                LocalDateTime.now(ZoneId.systemDefault()).plusDays(30)
         );
 
         RequisitionSkill rs1 = new RequisitionSkill(req, dsa, 5, BigDecimal.valueOf(0.80));
@@ -130,4 +133,3 @@ public class DataInitializer implements CommandLineRunner {
         jobRequisitionRepository.save(req);
     }
 }
-

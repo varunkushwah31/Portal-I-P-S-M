@@ -53,7 +53,7 @@ export const CompetencyGapModal: React.FC<CompetencyGapModalProps> = ({ report, 
               <p>
                 Our deterministic engine matched your profile against the technical requisition and isolated{' '}
                 <span className="font-bold text-sky-800">{report.missingSkillsCount} prerequisite competencies</span>.
-                Below are the KIET CS curriculum courses and remedial lab modules recommended to bridge these gaps.
+                Below are the institutional CS curriculum courses and remedial lab modules recommended to bridge these gaps.
               </p>
             </div>
           </div>

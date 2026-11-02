@@ -1,7 +1,6 @@
 package com.academia.placement.controller;
 
 import com.academia.placement.dto.SkillDto;
-import com.academia.placement.model.Skill;
 import com.academia.placement.repository.SkillRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/skills")
@@ -34,9 +32,8 @@ public class SkillController {
                         s.getCategory() != null ? s.getCategory().getName() : "General",
                         s.getDescription()
                 ))
-                .collect(Collectors.toList());
+                .toList();
 
         return ResponseEntity.ok(skills);
     }
 }
-

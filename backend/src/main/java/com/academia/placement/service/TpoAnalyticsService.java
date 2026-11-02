@@ -2,7 +2,6 @@ package com.academia.placement.service;
 
 import com.academia.placement.dto.NaacReportDto;
 import com.academia.placement.model.JobRequisition;
-import com.academia.placement.model.RequisitionSkill;
 import com.academia.placement.repository.JobRequisitionRepository;
 import com.academia.placement.repository.StudentProfileRepository;
 import org.springframework.stereotype.Service;

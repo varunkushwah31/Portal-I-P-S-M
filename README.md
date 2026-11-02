@@ -1,8 +1,8 @@
 # Academia–Industry Collaboration Portal for Skill Mapping, Internships, and Placement
 
-**Smart India Hackathon Reference:** Problem ID SIH26043 (Govt. of Jharkhand)  
-**Institution:** KIET Deemed to be University, Delhi-NCR, Ghaziabad (Department of Computer Science)  
-**Academic Alignment:** Major Project Annexure I / B.Tech Final Year Capstone (CO1–CO5, SDG 4, 8, 9)  
+**Project Categorization:** Major Final Year Capstone Project (Autonomous Enterprise Web System)  
+**Problem Reference:** SIH Problem ID SIH26043 (Government of Jharkhand)  
+**Academic Alignment:** Capstone Evaluation Outcomes (CO1–CO5, SDG 4, 8, 9)  
 **Stack Paradigm:** Latest Production Versions (Java 21/25 LTS, Spring Boot 3.4.x, PostgreSQL 17, Redis 7.4, React + Vite 6, TypeScript 5.7+, Tailwind CSS)
 
 ---
@@ -13,7 +13,7 @@ Traditional university placement management relies on static spreadsheets, unind
 
 1. **Role-Segregated Enterprise Architecture:** Segregated operational dashboards for **Students**, **Corporate Recruiters**, and **Training & Placement Officers (TPO / Administrators)** with stateless JSON Web Token (JWT) role-based access control.
 2. **Deterministic Skill-Taxonomy Matching Engine:** Replaces heuristic black-box resume screening with a transparent, algorithmic combination of **Jaccard Set Intersection** and **Weighted Cosine Similarity** over a canonical skill taxonomy.
-3. **Automated Competency Gap Diagnostic Reporting:** Isolates prerequisite competencies missing from unplaced candidates and deterministically maps them to institutional academic coursework (e.g., KCS-301, KCS-401, KCS-501, KCS-071) with specific remediation guides.
+3. **Automated Competency Gap Diagnostic Reporting:** Isolates prerequisite competencies missing from unplaced candidates and deterministically maps them to institutional academic coursework (e.g., CS-301, CS-401, CS-501, CS-701) with specific remediation guides.
 4. **Immutable Placement Audit Stream:** Generates verifiable, queryable placement records and aggregate metrics strictly compliant with **NAAC Criterion 5** and **NBA Criterion 4 & 5** accreditation reviews.
 
 ---
@@ -38,7 +38,7 @@ $$\text{Eligibility} = (\text{CGPA} \ge \text{Min CGPA}) \land (\text{Composite 
 
 ## 3. Technology Stack
 
-- **Backend:** Java 21 / 25 LTS, Spring Boot 3.4.3, Spring Security 6.4, Spring Data JPA, Hibernate 6.6, Flyway 10, Springdoc OpenAPI 2.8.5.
+- **Backend:** Java 21 / 25 LTS, Spring Boot 3.4.3, Spring Security 6.4, Spring Data JPA, Hibernate 6.6, Flyway 10, Springdoc OpenAPI 2.8.5, Spring Boot DevTools.
 - **Persistence & Caching:** PostgreSQL 17 (`postgres:17-alpine`), Redis 7.4 (`redis:7.4-alpine`).
 - **Frontend:** React 18, TypeScript 5.7+, Vite 6, Tailwind CSS, `@phosphor-icons/react` (strictly zero emojis, clean SVG tokens only).
 - **Quality Assurance:** JUnit 5, Mockito, AssertJ, GitHub Actions CI.
@@ -56,7 +56,7 @@ d:/Final Year Project/
 ├── backend/                       # Spring Boot 3.4.x core REST server
 │   ├── pom.xml
 │   └── src/
-│       ├── main/java/com/kiet/placement/
+│       ├── main/java/com/academia/placement/
 │       │   ├── config/            # SecurityConfig, JwtTokenProvider, OpenApiConfig, DataInitializer
 │       │   ├── controller/        # AuthController, StudentController, RecruiterController, MatchingController, TpoController
 │       │   ├── model/             # 3NF JPA Entities: User, StudentProfile, JobRequisition, Skill, Application, AuditLog
@@ -117,9 +117,9 @@ npm run dev
 
 | Role Persona | Email | Password | Primary Functions |
 |---|---|---|---|
-| **Student** | `student@kiet.edu` | `Password123!` | Technical skill matrix adjustments, deterministic role compatibility check, curriculum gap analysis modal, application submission |
+| **Student** | `student@university.edu` | `Password123!` | Technical skill matrix adjustments, deterministic role compatibility check, curriculum gap analysis modal, application submission |
 | **Recruiter** | `recruiter@google.com` | `Password123!` | Requisition publishing, skill weight criteria configuration, candidate recruitment pipeline |
-| **TPO Administrator** | `tpo@kiet.edu` | `Password123!` | NAAC Criterion 5 placement statistics, top deficit skills analysis, immutable event audit stream |
+| **TPO Administrator** | `tpo@university.edu` | `Password123!` | NAAC Criterion 5 placement statistics, top deficit skills analysis, immutable event audit stream |
 
 ---
 
